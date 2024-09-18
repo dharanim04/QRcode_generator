@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Generator</title>
+  <style>
+    body {
+      font-family: Source Sans Pro, sans-serif;
+      font-size: 16px;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    #qr-result img {
+      margin-top: 20px;
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>QR Code Generator</h1>
+  <form id="qr-form" style="display: flex;align-items: center;flex-direction: column;">
+    <div>
+      <span>Fullname </span>
+      <input type="text" id="firstname" placeholder="Enter first name" required />
+      <input type="text" id="lastname" placeholder="Enter last name" />
+    </div>
+    <div>
+      <span>mobileNumber </span>
+      <input type="text" id="mobileNumber" placeholder="Enter mobile Number" required />
+  
+    </div>
+    <div>
+      <span>Address </span>
+      <input type="text" id="address" placeholder="Enter address" /><br><br>
+    </div>
+  
+    <button type="submit">Generate QR Code</button>
+  </form>
+  <div id="qr-result"></div>
+
+  <script>
+    document.getElementById('qr-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const firstname = document.getElementById('firstname').value;
+      const lastname = document.getElementById('lastname').value;
+      const mobileNumber = document.getElementById('mobileNumber').value;
+      const address = document.getElementById('address').value;
+
+
+      if (!firstname || !mobileNumber) {
+        alert('Please enter both first, last name and mobilenumber');
+        return;
+      }
+
+      try {
+        const response = await fetch('/generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ firstname, lastname, mobileNumber, address }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          document.getElementById('qr-result').innerHTML = `<img src="${result.qrCode}" alt="QR Code" />`;
+        } else {
+          alert(result.error);
+        }
+      } catch (error) {
+        console.error('Error generating QR code:', error);
+      }
+    });
+  </script>
+</body>
+</html>
