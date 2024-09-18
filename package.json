@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@loskir/styled-qr-code-node": "^1.5.2",
     "express": "^4.21.0",
     "qrcode": "^1.5.4"
   }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    #qr-result img {
+      margin-top: 20px;
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>QR Code Generator</h1>
+  <form id="qr-form">
+    <input type="text" id="data" placeholder="Enter text or URL" required />
+    <button type="submit">Generate QR Code</button>
+  </form>
+  <div id="qr-result">
+    <h2>QR Code Result:</h2>
+    <img id="qr-image" src="" alt="QR Code will appear here" />
+  </div>
+<script>
+  document.getElementById('qr-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const data = document.getElementById('data').value;
+    if (!data) {
+      alert('Please enter some data');
+      return;
+    }
+    try {
+      const response = await fetch('/generateurl', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ data }),
+      });
+
+      if (response.ok) {
+        const qrCodeBlob = await response.blob();
+        const qrCodeUrl = URL.createObjectURL(qrCodeBlob);
+        // Display the QR code image in the img element
+        document.getElementById('qr-image').src = qrCodeUrl;
+      } else {
+        alert('Failed to generate QR code');
+      }
+    } catch (error) {
+      console.log('Error generating QR code:', error);
+    }
+  });
+</script>
+</body>
+</html>
