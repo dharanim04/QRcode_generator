@@ -22,9 +22,10 @@ app.post('/generateurl', async (req, res) => {
 
   try {
     // Generate QR code
-    const qrCode = await QRCode.toDataURL(data);
+    const qrCode = await QRCode.toDataURL(data,{ errorCorrectionLevel: 'H', width: 1500});
     res.json({ qrCode });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Failed to generate QR code' });
   }
 });
