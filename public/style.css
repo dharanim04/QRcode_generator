@@ -117,4 +117,6 @@ button:hover {
 .image-unblocked {
   display: block;
   border: 2px solid;
+  width: 500px;
+  height: 500px;
 }

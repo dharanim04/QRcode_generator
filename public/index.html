@@ -59,7 +59,7 @@
   
         <button type="submit">Generate QR Code</button>
       </form>
-      <div id="qr-result1" style="text-align: center;"></div>
+      <div id="qr-result1" ></div>
     </div>
   </div>
   <!-- With image -->
@@ -150,7 +150,7 @@
         });
         const result = await response.json();
         if (response.ok) {
-          document.getElementById('qr-result1').innerHTML = `<img src="${result.qrCode}" alt="QR Code" />`;
+          document.getElementById('qr-result1').innerHTML = `<img src="${result.qrCode}" class="image-unblocked" alt="QR Code" />`;
         } else {
           alert(result.error);
         }
@@ -206,7 +206,7 @@
         });
         const result = await response.json();
         if (response.ok) {
-          document.getElementById('qr-result3').innerHTML = `<img src="${result.qrCode}" alt="QR Code" />`;
+          document.getElementById('qr-result3').innerHTML = `<img src="${result.qrCode}" class ="image-unblocked" alt="QR Code" />`;
         } else {
           alert(result.error);
         }

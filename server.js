@@ -54,7 +54,7 @@ END:VCARD`;
 
   try {
     // Generate QR code
-    const qrCode = await QRCode.toDataURL(vCard.trim());
+    const qrCode = await QRCode.toDataURL(vCard.trim(), { errorCorrectionLevel: 'H', width: 1500});
     res.json({ qrCode });
   } catch (error) {
     res.status(500).json({ error: "Failed to generate QR code" });
@@ -73,6 +73,8 @@ app.post("/generateQRwithImage", upload.single('logo') ,async (req, res) => {
     const qrCode = new QRCodeCanvas({
       data: data,
       image: logoFilePath, // Path to the logo
+      width: 1500,
+      height:1500,
     });
     // Define the output file path
     const outputFilePath = path.join(__dirname, "public","qrcodes", "qr_with_logo.png");
@@ -96,7 +98,7 @@ app.post('/generateurl', async (req, res) => {
 
   try {
     // Generate QR code
-    const qrCode = await QRCode.toDataURL(data);
+    const qrCode = await QRCode.toDataURL(data, { errorCorrectionLevel: 'H', width: 1500});
     res.json({ qrCode });
   } catch (error) {
     res.status(500).json({ error: 'Failed to generate QR code' });
