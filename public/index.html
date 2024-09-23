@@ -7,85 +7,206 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <div class="form-container">
-    <h1>QR Code</h1>
-    <form id="qr-form">
-      <div class="form-group">
-        <label>Your Name:</label>
-        <input type="text" id="firstname" placeholder="First Name" required />
-        <input type="text" id="lastname" placeholder="Last Name" required />
-      </div>
+  <button type="button" class="collapsible" style="display: block;">Contact Number QR code</button>
+  <!-- for Contact card -->
+  <div class="content">
+    <div class="form-container">
+      <h1>QR Code</h1>
+      <form id="qr-form1">
+        <div class="form-group">
+          <label>Your Name:<span style="color: red;">*</span></label>
+          <input type="text" id="firstname" placeholder="First Name" required />
+          <input type="text" id="lastname" placeholder="Last Name" required />
+        </div>
+  
+        <div class="form-group">
+          <label>Contact:<span style="color: red;">*</span></label>
+          <input type="text" id="mobileNumber" placeholder="Phone" required />
+          <input type="text" id="fax" placeholder="Fax" />
+        </div>
+  
+        <div class="form-group">
+          <label>Email:</label>
+          <input type="email" id="email" placeholder="your@email.com" />
+        </div>
+  
+        <div class="form-group">
+          <label>Company:</label>
+          <input type="text" id="company" placeholder="Company" />
+          <input type="text" id="job" placeholder="Your Job" />
+        </div>
+  
+        <div class="form-group">
+          <label>Street:</label>
+          <input type="text" id="street" placeholder="Street" />
+        </div>
+  
+        <div class="form-group">
+          <label>City:</label>
+          <input type="text" id="city" placeholder="City" />
+          <input type="text" id="zip" placeholder="ZIP" />
+        </div>
+  
+        <div class="form-group">
+          <label>State:</label>
+          <input type="text" id="state" placeholder="State" />
+        </div>
+  
+        <div class="form-group">
+          <label>Country:</label>
+          <input type="text" id="country" placeholder="Country" />
+        </div>
+  
+        <button type="submit">Generate QR Code</button>
+      </form>
+      <div id="qr-result1" style="text-align: center;"></div>
+    </div>
+  </div>
+  <!-- With image -->
+  <button type="button" class="collapsible">Web link qr code with Image</button>
 
-      <div class="form-group">
-        <label>Contact:</label>
-        <input type="text" id="mobileNumber" placeholder="Phone" required />
-        <input type="text" id="fax" placeholder="Fax" />
+  <div class="content">
+    <div class="form-container">
+      <h1>QR Code Generator with Image</h1>
+      <form id="qr-form2" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="data2">Enter text or URL<span style="color: red;">*</span></label>
+          <input type="text" name="data2" id="data2" placeholder="Enter text or URL" required />
+        </div>
+        <div class="form-group">
+          <label for="logo">Upload logo for QR code:<span style="color: red;">*</span></label>
+          <input type="file" id="logo" name="logo" accept="image/*" required />
+        </div>
+        <button type="submit">Generate QR Code</button>
+      </form>
+      <div id="qr-result2">
+        <h4>QR Code Result:</h4><br/><br/>
+        <img id="qr-image" src="" class="image-blocked"
+        alt="QR Code will appear here" />
       </div>
-
-      <div class="form-group">
-        <label>Email:</label>
-        <input type="email" id="email" placeholder="your@email.com" />
+    
+    </div>
+  </div>
+  <!-- Web url -->
+  <button type="button" class="collapsible">QR code Generator</button>
+  <div class="content">
+    <h1>QR Code Generator</h1>
+    <form id="qr-form3">
+      <div >
+        <label for="data3">Enter text or URL<span style="color: red;">*</span></label>
+        <input type="text" name="data3" id="data3" placeholder="Enter text or URL" required />
       </div>
-
-      <div class="form-group">
-        <label>Company:</label>
-        <input type="text" id="company" placeholder="Company" />
-        <input type="text" id="job" placeholder="Your Job" />
-      </div>
-
-      <div class="form-group">
-        <label>Street:</label>
-        <input type="text" id="street" placeholder="Street" />
-      </div>
-
-      <div class="form-group">
-        <label>City:</label>
-        <input type="text" id="city" placeholder="City" />
-        <input type="text" id="zip" placeholder="ZIP" />
-      </div>
-
-      <div class="form-group">
-        <label>State:</label>
-        <input type="text" id="state" placeholder="State" />
-      </div>
-
-      <div class="form-group">
-        <label>Country:</label>
-        <input type="text" id="country" placeholder="Country" />
-      </div>
-
       <button type="submit">Generate QR Code</button>
     </form>
-    <div id="qr-result" style="text-align: center;"></div>
+    <div id="qr-result3" style="text-align: center;"></div>
   </div>
+  <!-- script for collapse -->
   <script>
-    console.log(document.getElementById('qr-form'))
-    document.getElementById('qr-form').addEventListener('submit', async function (e) {
+      document.addEventListener('DOMContentLoaded', () => {
+        const allContent = document.querySelectorAll('.content');
+        const thirdContent = allContent[2];
+        // Expand the first section on load
+        thirdContent.style.display = 'block';
+
+        document.querySelectorAll('.collapsible').forEach(button => {
+
+
+          button.addEventListener('click', () => {
+            const content = button.nextElementSibling;
+            const allContent = document.querySelectorAll('.content');
+
+            // Collapse all other content sections
+            allContent.forEach(section => {
+              if (section !== content) {
+                section.style.display = 'none';
+              }
+            });
+
+            // Toggle the clicked section
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+          });
+        });
+      });
+  </script>
+  <!-- script for contact card -->
+  <script>
+    document.getElementById('qr-form1').addEventListener('submit', async function (e) {
       e.preventDefault();
       const firstname = document.getElementById('firstname').value;
       const lastname = document.getElementById('lastname').value;
       const mobileNumber = document.getElementById('mobileNumber').value;
       const address = document.getElementById('street').value;
-
-
       if (!firstname || !mobileNumber) {
         alert('Please enter both first, last name and mobilenumber');
         return;
       }
-
       try {
-        const response = await fetch('/generate', {
+        const response = await fetch('/generateContactCard', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ firstname, lastname, mobileNumber, address }),
         });
-
         const result = await response.json();
-
         if (response.ok) {
-          document.getElementById('qr-result').innerHTML = `<img src="${result.qrCode}" alt="QR Code" />`;
+          document.getElementById('qr-result1').innerHTML = `<img src="${result.qrCode}" alt="QR Code" />`;
+        } else {
+          alert(result.error);
+        }
+      } catch (error) {
+        console.error('Error generating QR code:', error);
+      }
+    });
+  </script>
+  <!-- script for generate with image  -->
+  <script>
+    document.getElementById('qr-form2').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData();
+        formData.append('data', document.getElementById('data2').value);
+        formData.append('logo', document.getElementById('logo').files[0]);
+        try {
+          const response = await fetch('/generateQRwithImage', {
+            method: 'POST',
+            body: formData
+          });
+        if (response.ok) {
+          const qrCodeBlob = await response.blob();
+          const qrCodeUrl = URL.createObjectURL(qrCodeBlob);
+          // Display the QR code image in the img element
+          const img = document.getElementById('qr-image')
+         img.src =  qrCodeUrl;
+         img.className ='image-unblocked';
+        } else {
+          alert('Failed to generate QR code');
+        }
+      } catch (error) {
+        console.log('Error generating QR code:', error);
+      }
+    });
+  </script>
+
+  <!-- script for url generator -->
+  <script>
+    document.getElementById('qr-form3').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const data = document.getElementById('data3').value;
+      if (!data) {
+        alert('Please enter some data');
+        return;
+      }
+      try {
+        const response = await fetch('/generateurl', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ data }),
+        });
+        const result = await response.json();
+        if (response.ok) {
+          document.getElementById('qr-result3').innerHTML = `<img src="${result.qrCode}" alt="QR Code" />`;
         } else {
           alert(result.error);
         }
