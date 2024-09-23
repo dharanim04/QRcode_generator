@@ -1,0 +1,2 @@
+This is sample file
+This upload folder where uploaded images are saved in this path
